@@ -1,0 +1,453 @@
+<html>
+	<head>
+		<title><%= title %></title>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/materialize.min.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/styling.css">
+		<script type="text/javascript" src="/javascripts/angular.js"></script>
+		<script src="/javascripts/angular-ui-router.js"></script>
+		<script type="text/javascript" src="/javascripts/angularApp.js"></script>
+		<script type="text/javascript" src="/javascripts/jquery.js"></script>
+		<script type="text/javascript" src="/javascripts/materialize.min.js"></script>
+		<style type="text/css">
+			.click {
+				cursor: pointer;
+			}
+			.active {
+				color: #20CCE2;
+			}
+		</style>
+	</head>
+	<body ng-app="flapperNews">
+		<nav ng-controller="NavCtrl">
+	    <div class="nav-wrapper">
+	      <a href="/#/home" class="brand-logo ml2">Logo</a>
+	      <ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li ng-show="isLoggedIn()">
+						<a href="/#/addPost">add post</a>
+					</li>
+					<li ng-show="isLoggedIn()">
+						<a href="/#/user/{{currentUser()}}">{{currentUser()}}</a>
+					</li>
+	        <li ng-show="isLoggedIn()">
+	        	<a class="waves-effect waves-light btn-large ml2" href="#" ng-click="logOut()">Log in</a>
+	        </li>
+	        <li ng-hide="isLoggedIn()">
+	        	<a class="waves-effect waves-light btn-large ml2" href="#" ng-click="logOut()">Login</a>
+	        </li>
+	        <li ng-hide="isLoggedIn()">
+	        	<a class="waves-effect waves-light btn-large ml2" href="/#/register">Signup</a>
+	        </li>
+	      </ul>
+	    </div>
+	  </nav>
+	  <ui-view></ui-view>
+	  
+
+	  <!-- <div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
+					<ul clas="nav navbar-nav">
+						<li>
+							<a href="/#/home">home</a>
+						</li>
+						<li ng-show="isLoggedIn()">
+							<a href="/#/addPost">add post</a>
+						</li>
+						<li ng-show="isLoggedIn()">
+							<a href="/#/user/{{currentUser()}}">{{currentUser()}}</a>
+						</li>
+						<li ng-show="isLoggedIn()">
+							<a href="#" ng-click="logOut()">Log Out</a>
+						</li>
+						<li ng-hide="isLoggedIn()">
+							<a href="/#/login">Log In</a>
+						</li>
+						<li ng-hide="isLoggedIn()">
+							<a href="/#/register">Register</a>
+						</li>
+					</ul>
+				</nav>
+				<ui-view></ui-view>
+			</div>
+		</div>		 -->
+		
+		<footer class="page-footer">
+		  <div class="container">
+		    <div class="row">
+		      <div class="col l6 s12">
+		        <h5 class="white-text">Footer Content</h5>
+		        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+		      </div>
+		      <div class="col l4 offset-l2 s12">
+		        <h5 class="white-text">Links</h5>
+		        <ul>
+		          <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+		          <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+		          <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+		          <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+		        </ul>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="footer-copyright">
+		    <div class="container">
+		    © 2016 Copyright Text
+		    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+		    </div>
+		  </div>
+		</footer>
+
+		<script type="text/ng-template" id="/home.html">
+			<div class="section">
+				<div class="row">
+					<div class="col l1 "></div>
+					<div class="col s12 l10 ">
+			      <div class="row">
+			        <div class="col s12 m4" ng-repeat="post in posts">
+			          <div class="card">
+			          	<div class="card-content">
+			              <span class="card-title">
+			              	<a href="#/posts/{{post._id}}">
+												{{post.title}}
+											</a>
+											{{post.author}}
+			              </span>
+			              <p>{{post.body}}</p>
+			            </div>
+			            <div class="card-action">
+			              <a href="#">Read more</a>
+			              <a href="#!" class="waves-effect waves-light btn-small right-align active" ng-show="post.upvoted" ng-click="incrementUpvotes(post)">
+			              	<i class="small material-icons green-text text-accent-3">star_border</i>
+			              </a>
+			              <a href="#!" class="waves-effect waves-light btn-small right-align" ng-hide="post.upvoted" ng-click="incrementUpvotes(post)">
+			              	<i class="small material-icons green-text text-accent-3">star_border</i>
+			              </a>
+			              {{post.upvotes}}
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+					</div>
+					<div class="col l1"></div>
+				</div>
+			</div>
+			<!-- <div class="post-body" ng-repeat="post in posts">
+				<div class="post-title">
+					<a href="#/posts/{{post._id}}">
+						{{post.title}}
+					</a>
+					{{post.author}}
+					<span>
+						{{post.comments}} comments
+					</span>
+				</div>
+				<span class="glyphicon glyphicon-thumbs-up click active" ng-show="post.upvoted" ng-click="incrementUpvotes(post)"></span>
+				<span class="glyphicon glyphicon-thumbs-up click"  ng-hide="post.upvoted" ng-click="incrementUpvotes(post)">
+				</span>
+				{{post.upvotes}}
+			</div> -->
+		</script>
+
+		<script type="text/ng-template" id="/addPost.html">
+			<div class="section">
+				<div class="container">
+					<div ng-hide="isLoggedIn()">
+						<h3>You need to 
+							<a href="/#/login">log In</a> or 
+							<a href="/#/register">Register</a> before you can add a post
+						</h3>
+					</div>
+
+					<form ng-submit="addPost()" ng-show="isLoggedIn()">
+						<div class="row">
+		      		<div class="input-field col s12">
+		          	<textarea id="textarea1"  class="materialize-textarea add-title" ng-model="title"></textarea>
+		          	<label for="textarea1">Add Title</label>
+		        	</div>
+		        </div>
+						<div class="row">
+		      	 <div class="input-field col s12">
+		          <textarea name="body" rows="10" class="materialize-textarea add-body " placeholder="Tell a freaking story" ng-model="body"></textarea>
+		          <label for="body">Body</label>
+		         </div>
+		        </div>
+			      <div class="row">
+			        <div class="input-field col s12 m6">
+			          <input id="topic" type="text" class="validate" ng-model="type">
+			          <label for="topic">Topic</label>
+			        </div>
+			        <div class="input-field col s12 m6">
+			          <input id="tag" type="text" class="validate" ng-model="tags">
+			          <label for="tagc">Tag</label>
+			        </div>
+			      </div>
+			      <button class="btn waves-effect waves-light submit-btn" type="submit">Submit
+		  			</button>
+					</form>
+		    </div>
+			</div>
+		
+			<!-- <h1> Add a new Story</h1>
+			<div ng-hide="isLoggedIn()">
+				<h3>You need to <a href="/#/login">log In</a> or <a href="/#/register">Register</a> before you can add a post</h3>
+			</div>
+			<form ng-submit="addPost()" ng-show="isLoggedIn()">
+				<h3>Add a new post</h3>
+				<div class="form-group">
+					<label>Title</label>
+					<input type="text" placeholder="title" required ng-model="title" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="">Story</label>
+					<input type="text" placeholder="write something fun.." class="form-control" ng-model="body" required>
+				</div>
+				<div class="form-group">
+					<label for="">Type</label>
+					<input type="text" placeholde="type" class="form-control" ng-model="type" required>
+				</div>
+				<div class="form-group">
+					<lable>Tags</lable>
+					<input type="text" palceholder="tags" class="form-control" ng-model="tags" required>
+				</div>
+				<button type="submit" class="btn btn-primary">post</button>
+			</form> -->
+		</script>
+
+		<script type="text/ng-template" id="/posts.html">
+			<div class="section">
+				<div class="row">
+					<div class="container line-width">
+						<div class="story-head center-align mb2">
+		    	 		<h1 class="story-title">{{post.title}}</h1>
+		    	 		<h3 class="story-author">{{post.author}}</h3>
+		    	 	</div>
+		    	 	<div class="story-body mb2">
+		    	 		{{post.body}}
+		    	 	</div>
+						<div class="story-foot mb3">
+		          <a href="#" class="icons timestamp">last saved kal</a>
+		          <a href="#" class="waves-effect waves-light btn-small right-align icons">
+		          	<i class="small material-icons green-text text-accent-3 active" ng-show="post.upvoted" ng-click="upvote()">star_border</i>
+		          	<i class="small material-icons green-text text-accent-3" ng-hide="post.upvoted" ng-click="upvote()">star_border</i>
+		          	<span class="number">56</span>
+		          </a>
+		          <a href="#" class="waves-effect waves-light btn-small right-align icons">
+		          	<i class="small material-icons green-text text-accent-3">{{post.comments}}</i>
+		          	<span class="number">3</span>
+		          </a>
+						</div>
+						<div class="section mb2">
+					  	<div class="row">
+					  		<div ng-hide="isLoggedIn()">
+									<h3>You need to <a href="/#/login">log In</a> or <a href="/#/register">Register</a> before you can add a comment
+									</h3>
+								</div>
+
+						    <form class="col s12" ng-submit="addComment()" ng-show="isLoggedIn()">
+						      <div class="row">
+						        <div class="input-field col s12 card comm-input">
+						          <img src="sdkjbvkbj" alt="" class="circle comm-image prefix" />
+						          <input id="icon_prefix" type="text" class="validate ml4" ng-model="body">
+						          <label for="icon_prefix" class="ml4">Comment</label>
+						          <button class="btn waves-effect waves-light submit-btn pos-absolute" type="submit" name="action">
+												submit
+										  </button>
+						        </div>
+						      </div>
+						    </form>
+						  </div>
+					  </div>
+		        <span>
+		      		<ul class="collection comments">
+		 						<li class="collection-item avatar card-panel mb3" ng-repeat="comment in post.comments | orderBy: '-upvotes'">
+									<img src="images/yuna.jpg" alt="" class="circle">
+									<span class="title">{{comment.title}}</span>
+										<p>{{comment.body}}</p> 
+									<a href="#!" class="secondary-content">
+										<i class="material-icons green-text text-accent-3 active" ng-show="comment.upvoted" ng-click="incrementUpvotes(comment)">star_border</i>
+										<i class="material-icons green-text text-accent-3" ng-hide="comment.upvoted" ng-click="incrementUpvotes(comment)">star_border</i>
+										{{comment.upvotes}}
+									</a>
+								</li>
+							</ul>
+		      	</span>
+		  	  </div>
+		    </div>
+		  </div>
+
+
+			<!-- <div class="post-title">
+				{{post.title}}
+				<br>
+				{{post.type}}
+			</div>
+			
+			<div class="post-body">
+				{{post.body}}
+			</div>
+
+			<div class="post-tags">
+				{{post.tags}}
+			</div>
+			<span class="glyphicon glyphicon-thumbs-up click active" ng-show="post.upvoted" ng-click="upvote()"></span>
+			<span class="glyphicon glyphicon-thumbs-up click" ng-hide="post.upvoted" ng-click="upvote()"></span>
+			{{post.upvotes}}
+			<div ng-repeat="comment in post.comments | orderBy: '-upvotes'">
+				<div class="comment body">
+					{{comment.body}}
+				</div>
+				 - by {{comment.author}}
+
+				<span class="glyphicon glyphicon-thumbs-up click" ng-hide="comment.upvoted" ng-click="incrementUpvotes(comment)"></span>
+				<span class="glyphicon glyphicon-thumbs-up click active" ng-show="comment.upvoted" ng-click="incrementUpvotes(comment)"></span>
+				{{comment.upvotes}}			
+			</div>
+			<div ng-hide="isLoggedIn()">
+				<h3>You need to <a href="/#/login">log In</a> or <a href="/#/register">Register</a> before you can add a comment
+				</h3>
+			</div>
+			<form ng-submit="addComment()" ng-show="isLoggedIn()">
+				<div class="form-group">
+					<label>Add comment</label>
+					<input type="text" class="form-control" placeholder="comment" ng-model="body"></input>
+				</div>
+				<button type="submit" class="btn btn-primary">post</button>
+			</form> -->
+		</script>
+
+		<script type="text/ng-template" id="/users.html">
+			<div class="section">
+				<div class="container">
+					<div class="header story-head">
+						<h1 class="story-title">
+							{{user.username}}
+						</h1>
+						<img src="/img/jay.jpeg" class="z-depth-3 user-image">
+					</div>
+					<div class="profile-body">
+						<div class="row">
+							<div class="col s3">
+								<nav class="side-navbar">
+									<ul>
+							      <li><a href="#!">Stories</a></li>
+							      <li><a href="#!">Tags followed</a></li>
+							    </ul>
+								</nav>
+							</div>
+							<div class="col s9">
+								<div class="content-user">
+									<ul>
+										<li ng-repeat="post in post">
+											<div class="card user-card blue-grey darken-1">
+						            <div class="card-content white-text">
+						              <span class="card-title">{{post.title}}</span>
+						              <p>{{post.body}}</p>
+						            </div>
+						            <div class="card-action">
+						              <a href="#">This is a link</a>
+						              <a href="#">This is a link</a>
+						            </div>
+						          </div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- <h1>{{user.username}}</h1>
+			<div ng-repeat="post in post">
+				{{post.body}}
+				<hr>
+			</div> -->
+		</script>
+
+		<script type="text/ng-template" id="/register.html">
+			<div ng-show="error" class="alert alert-danger row">
+				<span>{{error.message}}</span>
+			</div>
+
+			<div class="section">
+				<div class="row">
+					<div class="col offset-l3 l6">
+						<div class="card">
+		          <div class="card-content login-card">
+		            <span class="card-title">Signup</span>
+		          	<form ng-submit="register()">
+		          		<div class="input-field col s12">
+					          <input placeholder="Name" type="text" required>
+					        </div>
+		          		<div class="input-field col s12">
+					          <input placeholder="Email" type="email" required>
+					        </div>
+								 	<div class="input-field col s12">
+					          <input placeholder="username" type="text" ng-model="user.username" required>
+					        </div>
+					        <div class="input-field col s12">
+					          <input placeholder="password" type="password" ng-model="user.password" required>
+					        </div>
+									<button type="submit" class="waves-effect waves-light btn">Let's begin</button>
+					      </form>
+				      </div>
+		        </div>
+					</div>
+				</div>
+			</div>
+
+<!-- 				<h3>Register</h3>
+				<div class="form-group">
+					<input class="form-control" type="text" placeholder="username" ng-model="user.username"></input>
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="password" placeholder="password" ng-model="user.password"></input>
+				</div>
+				<button type="submit">Register</button>
+			</form> -->
+		</script>
+
+		<script type="text/ng-template" id="/login.html">
+			<div class="header">
+				<h2>FlapperNews</h2>
+			</div>
+			
+			<div ng-show="error" class="alert alert-danger row">
+				<span>{{error}}</span>
+			</div>
+
+			<div class="section">
+				<div class="row">
+					<div class="col offset-l4 l4">
+						<div class="card">
+		          <div class="card-content login-card">
+		            <span class="card-title">Login</span>
+		          	<form ng-submit="logIn()">
+								 	<div class="input-field col s12">
+					          <input placeholder="username" type="text" ng-model="user.username" required>
+					        </div>
+					        <div class="input-field col s12">
+					          <input placeholder="password" type="password" ng-model="user.password" required>
+					        </div>
+									<button type="submit" class="waves-effect waves-light btn">ghus ja</a>
+					      </form>
+				      </div>
+		        </div>
+					</div>
+				</div>
+			</div>
+
+			<!-- <form ng-submit="logIn()">
+				<h3>Login</h3>
+				<div class="form-group">
+					<input class="form-control" type="text" placeholder="username" ng-model="user.username"></input>
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="password" placeholder="password" ng-model="user.password"></input>
+				</div>
+				<button type="submit">Log In</button>
+			</form> -->
+		</script>
+	</body>	
+</html>

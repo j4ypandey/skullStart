@@ -1,0 +1,149 @@
+.ml2 {
+	margin-left: 2% !important;
+}
+
+.col {
+	min-height: 1px;
+
+}
+
+html {
+	overflow-x: hidden;
+}
+h1.story-title {
+	font-size: 3rem;
+	font-weight: 300;
+	margin: 1.1rem 0 0.68rem 0;
+}
+h3.story-author {
+ 	font-size: 2.4rem;
+  font-weight: 100;
+  margin: 0.46rem 0 0.168rem 0;
+}
+@media only screen and (min-width: 993px) {
+	.line-width {
+    width: 55%;
+  }
+}
+.story-head {
+	border-bottom: 1px solid black;
+	padding-bottom: 3%;
+}
+
+.story-body {
+	border-bottom: 1px solid black;
+	padding-bottom: 3%;
+  font-size: 1.3rem;
+  font-weight: 300;
+  word-wrap: break-word;
+  white-space: pre-line;
+  text-align: justify;
+}
+
+.mb2 {
+	margin-bottom: 2%;
+}
+
+.icons {
+	padding-left: 2%;
+}
+
+.timestamp {
+	font-size: 1.3rem;
+  color: grey;
+  font-weight: 100;
+}
+.number {
+	float: right;
+}
+
+.collection.comments {
+    border: none;
+}
+.collection-item.avatar.card-panel.mb3 {
+    margin-bottom: 3%;
+}
+.collection-item.avatar.card-panel.mb3:first-child{
+	margin-top: 1%;
+}
+.mb0 {
+	margin-bottom: 0px;
+}
+.mb3{
+	margin-bottom: ;
+}
+.comm-image {
+	vertical-align: middle;
+	position: absolute;
+	width: 42px;
+	height: 42px;
+	overflow: hidden;
+}
+.comment-section {
+	position: relative;
+}
+.ml4 {
+	margin-left: 4rem !important;
+	margin-right: 1% !important;
+}
+.submit-btn {
+	padding-left: 1%;
+	padding-right: 1%;
+}
+.input-field .prefix ~ input {
+	width: calc(100% - 9rem);
+}
+.row .comm-input {
+	padding-top: 3%;
+}
+.add-title.materialize-textarea {
+	padding: 0;
+}
+.add-body.materialize-textarea {
+	overflow-y: scroll;
+	height: 100% !important;
+}
+.pos-absolute {
+	position: absolute;
+}
+.user-image {
+	display: block;
+	margin: 0 auto;
+	border-radius: 13%;
+}
+.header {
+	text-align: center;
+}
+
+.profile-body {
+	padding-top: 3%;
+}
+
+.side-navbar {
+	width: 172px;
+	height: 100%;
+	background-color: #fff;
+}
+
+.side-navbar ul li{
+	float: none;
+	border-bottom: 1px solid black;
+}
+
+.side-navbar ul li:last-child {
+	border: none;
+}
+
+.side-navbar ul li a {
+	color: black;
+}
+
+.content-user ul{
+	margin: 0px;
+}
+.user-card {
+	margin: 0px;
+}
+.login-card {
+	text-align: center;
+}
